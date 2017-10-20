@@ -32,6 +32,21 @@ public class ListActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listOfShops);
 
         myListView.setAdapter(arrayAdapter);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //static latitude and longitude
+                Double Latitude = 41.0883467;
+                Double Longitude = 23.5500933;
+                String labelLocation = "ShopName";
+                Intent intent=new Intent(Intent.ACTION_VIEW);
 
+                intent.setData(Uri.parse("geo:<" + Latitude  + ">,<" + Longitude + ">?q=<" + Latitude  + ">,<" + Longitude + ">(" + labelLocation+ ")"));
+
+                //if user has not the application googleMaps it will show him a dialog with Launch Maps
+                Intent chooser=Intent.createChooser(intent,"Launch Maps");
+                startActivity(chooser);
+            }
+        });
     }
 }
